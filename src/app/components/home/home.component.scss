@@ -1,31 +1,112 @@
 .header {
-  @apply
-  tw-flex
+  @apply tw-flex
   tw-flex-row
-  tw-justify-between
+  tw-justify-center
   tw-items-center
   tw-rounded-4-px
-  tw-p-12-px
-  tw-m-24-px;
-  background: linear-gradient(146deg, #e1eeff 19.67%, #ffe4fb 127.56%);
+  tw-w-full
+  tw-shadow-lg
+  tw-p-12-px;
+  background: #fafeff;
 }
 
 .search-button {
-  @apply
-  tw-border 
-  tw-border-solid 
-  tw-border-dark-border
-  tw-rounded-4-px
+  @apply 
+  tw-bg-gray-100
+  tw-rounded-full
+  tw-h-40-px
   tw-flex
-  tw-justify-center
-  tw-h-60-px
-  tw-w-200-px
+  tw-flex-row
+  tw-items-center
+  tw-justify-between
+  tw-w-[300px];  
+}
+
+input:focus {
+  outline: none;
 }
 
 .trending-subjects {
-  @apply
-  tw-bg-table-header-bg
+  height: 100vh;
+  color: white;
+  background: rgb(101, 93, 241);
+  background: linear-gradient(
+    to bottom,
+    rgb(58, 48, 238) 0%,
+    rgba(167, 51, 187, 0.978) 100%
+  );
+  
+  @apply tw-bg-table-header-bg
   tw-p-12-px
-  tw-rounded-4-px
   tw-shadow-lg
+  tw-w-[300px];
+}
+
+.nav-list-item{
+  @apply tw-text-16-px 
+  tw-cursor-pointer 
+  tw-p-12-px
+  tw-my-[2px]
+  tw-flex
+  tw-flex-row
+  tw-items-center
+  tw-rounded-md
+  tw-whitespace-nowrap
+  tw-px-5;
+
+  &:hover {
+    @apply tw-bg-purple-400;
+  }
+  &.active {
+    @apply tw-bg-purple-400;
+  }
+  mat-icon {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem 4rem;
+  border: 2px solid red;
+  color: white;
+  background-color: rgb(240, 145, 145);
+}
+.empty-search {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem 4rem;
+  color: rgb(140, 140, 140);
+  font-weight: 400;
+}
+
+.loader {
+  z-index: 9999;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-circle {
+  width: 50px;
+  height: 50px;
+  border: 3px solid #ccc;
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: loader-rotate 1s linear infinite;
+}
+
+@keyframes loader-rotate {
+  to {
+    transform: rotate(360deg);
+  }
 }
