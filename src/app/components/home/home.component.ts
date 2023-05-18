@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { debounceTime, filter } from 'rxjs';
 import { Doc } from 'src/app/core/models/book-response.model';
 import { SearchService } from 'src/app/core/services/search.service';
+import { CacheService } from 'src/app/core/services/cache.service';
 
 @Component({
   selector: 'front-end-internship-assignment-home',
@@ -12,6 +13,7 @@ import { SearchService } from 'src/app/core/services/search.service';
 export class HomeComponent implements OnInit {
   bookSearch: FormControl;
   isLoading = false;
+  cachedResults: Doc[] = [];
   searchResults: Doc[] = [];
   errorMessage = '';
   currentQuery = '';
@@ -19,7 +21,7 @@ export class HomeComponent implements OnInit {
   currentPage = 1;
   totalPages = 1;
 
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchService, private cacheService: CacheService) {
     this.bookSearch = new FormControl('');
 
     this.searchService.pageEmitter.subscribe((pageNum: number) => {
@@ -44,6 +46,15 @@ export class HomeComponent implements OnInit {
       return;
     }
     this.query = this.currentQuery;
+    this.cachedResults = this.cacheService.getFromCache(this.query, page)?.docs || [];
+    console.log(this.cachedResults);
+    if (this.cachedResults.length > 0) {
+      this.searchResults = this.cachedResults;
+      this.currentPage = page;
+      this.totalPages = Math.floor(this.cachedResults.length) + 1;
+      this.isLoading = false;
+      return;
+    }
     this.searchService.getSearchResults(query, page).subscribe(
       (data) => {
         this.searchResults = data?.docs;
@@ -53,6 +64,7 @@ export class HomeComponent implements OnInit {
         this.currentPage = page;
         this.totalPages = Math.floor(data.numFound / 10) + 1;
         this.isLoading = false;
+        this.cacheService.addToCache(this.query, page, data);
       },
       (err) => {
         if (err.status === 404) {
@@ -73,7 +85,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.bookSearch.valueChanges
-      .pipe(debounceTime(300))
       .subscribe((value: string) => {
         this.errorMessage = '';
         this.currentQuery = value;

@@ -19,7 +19,7 @@ export class TableViewComponent {
 
   constructor(private searchService: SearchService) {}
 
-  goToPage(page: number) {
+  goToPage(page: number) { 
     this.searchService.emitPage(page);
   }
 }
