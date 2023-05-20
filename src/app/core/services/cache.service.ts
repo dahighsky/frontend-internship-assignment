@@ -6,7 +6,7 @@ import { BookResponse, SearchResponse } from '../models/book-response.model';
 })
 export class CacheService {
   CACHE_KEY_PREFIX = 'fyle-book';
-  CACHE_EXPIRATION_TIME = 3600000; // 1 hour
+  CACHE_EXPIRATION_TIME = 360000; // 1 hour
 
   getCacheKey(query: string, page: number): string {
     const cacheKey = `${this.CACHE_KEY_PREFIX}:${query}:${page}`;

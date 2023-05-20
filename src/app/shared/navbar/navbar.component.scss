@@ -1,0 +1,39 @@
+.trending-subjects {
+  height: 100vh;
+    color: white;
+    background: rgb(101, 93, 241);
+    background: linear-gradient(
+      to bottom,
+      rgb(58, 48, 238) 0%,
+      rgba(167, 51, 187, 0.978) 100%
+    );
+    
+    @apply tw-bg-table-header-bg
+    tw-p-12-px
+    tw-shadow-lg
+    tw-w-[300px];
+  }
+  
+  .nav-list-item{
+    @apply tw-text-16-px 
+    tw-cursor-pointer 
+    tw-p-12-px
+    tw-my-[2px]
+    tw-flex
+    tw-flex-row
+    tw-items-center
+    tw-rounded-md
+    tw-whitespace-nowrap
+    tw-px-5;
+  
+    &:hover {
+      @apply tw-bg-purple-400;
+    }
+    &.active {
+      @apply tw-bg-purple-400;
+    }
+    mat-icon {
+      height: 20px;
+      width: 20px;
+    }
+  }

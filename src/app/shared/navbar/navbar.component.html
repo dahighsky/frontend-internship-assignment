@@ -1,0 +1,30 @@
+<section class="trending-subjects">
+  <ul class="tw-list-none tw-pl-0 tw-flex tw-flex-col tw-content-stretch">
+    <li
+      class="nav-list-item nav-link active"
+      routerLink="/"
+      (click)="navButtonClick(0)"
+    >
+      <mat-icon
+        class="tw-cursor-pointer tw-text-[20px] tw-mr-4"
+        aria-label="Home Icon"
+        >home</mat-icon
+      >Home
+    </li>
+    <li class="nav-list-item nav-link" routerLink="/">
+      <mat-icon
+        class="tw-cursor-pointer tw-text-[20px] tw-mr-4"
+        aria-label="Search Icon"
+        >search</mat-icon
+      >Search
+    </li>
+    <li
+      class="nav-list-item nav-link"
+      *ngFor="let subject of trendingSubjects"
+      routerLink="/trending-subject/{{ subject.name }}"
+      (click)="navButtonClick(subject.index)"
+    >
+      {{ subject.name }}
+    </li>
+  </ul>
+</section>
